@@ -20,6 +20,7 @@ class CategoryGridView extends StatelessWidget {
             child: Stack(
               children: [
                 FadeInImage(
+                    fit: BoxFit.cover,
                     placeholder: const AssetImage("assets/images/splash.png"),
                     image: NetworkImage(
                       "https://picsum.photos/seed/${index + 1}/300/300",
