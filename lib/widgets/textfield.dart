@@ -6,9 +6,10 @@ import 'package:flutter/src/widgets/placeholder.dart';
 class EduTextField extends StatelessWidget {
   final String hintText;
   final TextEditingController controller;
+  bool obscureText;
 
-  const EduTextField(
-      {super.key, required this.hintText, required this.controller});
+  EduTextField(
+      {super.key, required this.hintText, required this.controller, this.obscureText = false});
 
   @override
   Widget build(BuildContext context) {
@@ -18,6 +19,7 @@ class EduTextField extends StatelessWidget {
           color: brand_color,
           border: Border.all(color: text_light_color)),
       child: TextField(
+        obscureText: obscureText,
         controller: controller,
         style: TextStyle(color: text_light_color),
         decoration: InputDecoration(

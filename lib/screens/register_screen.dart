@@ -6,16 +6,19 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import '../widgets/elevated_button.dart';
 import '../widgets/textfield.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
-  final TextEditingController _usernameController = TextEditingController();
+class _RegisterScreenState extends State<RegisterScreen> {
+  final TextEditingController _firstnameController = TextEditingController();
+  final TextEditingController _lastameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _repasswordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -38,15 +41,29 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: 50,
               ),
               Text(
-                "Login to your account",
+                "Signup to your account",
                 style: TextStyle(color: text_light_color, fontSize: 16),
               ),
               const SizedBox(
                 height: 50,
               ),
               EduTextField(
-                hintText: "Email/Mobile Number",
-                controller: _usernameController,
+                hintText: "First Name",
+                controller: _firstnameController,
+              ),
+              const SizedBox(
+                height: 25,
+              ),
+              EduTextField(
+                hintText: "Last Name",
+                controller: _lastameController,
+              ),
+              const SizedBox(
+                height: 25,
+              ),
+              EduTextField(
+                hintText: "Email ID/Phone Number",
+                controller: _emailController,
               ),
               const SizedBox(
                 height: 25,
@@ -56,18 +73,21 @@ class _LoginScreenState extends State<LoginScreen> {
                 controller: _passwordController,
                 obscureText: true,
               ),
+              const SizedBox(
+                height: 25,
+              ),
+              EduTextField(
+                hintText: "Re-enter Password",
+                controller: _repasswordController,
+                obscureText: true,
+              ),
               const SizedBox(height: 50),
               EduElevatedButton(
                 onPressed: () {},
-                text: "Login",
+                text: "Create",
               ),
               const SizedBox(height: 50),
-              Text(
-                "Forgot your password?",
-                style: TextStyle(color: text_light_color, fontSize: 16),
-              ),
-              const SizedBox(height: 50),
-              Text("Don’t have an account? Sign up",
+              Text("Have an account ? Sign in",
                   style: TextStyle(color: text_light_color, fontSize: 16))
             ],
           ),
