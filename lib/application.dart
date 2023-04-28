@@ -27,7 +27,7 @@ class Application extends StatelessWidget {
       routes: {
         "/login": (context) => const LoginScreen(),
         "/register": (context) => const RegisterScreen(),
-        "/home_dashbaoard": (context) => const HomeDashboardScreen()
+        "/home_dashbaoard": (context) => HomeDashboardScreen()
       },
     );
   }
