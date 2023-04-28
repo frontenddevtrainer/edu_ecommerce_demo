@@ -19,10 +19,11 @@ class CategoryGridView extends StatelessWidget {
           return Container(
             child: Stack(
               children: [
-                Image.network(
-                  "https://picsum.photos/seed/${index + 1}/300/300",
-                  fit: BoxFit.cover,
-                ),
+                FadeInImage(
+                    placeholder: const AssetImage("assets/images/splash.png"),
+                    image: NetworkImage(
+                      "https://picsum.photos/seed/${index + 1}/300/300",
+                    )),
                 Positioned(
                     child: Container(
                   color: Colors.black.withOpacity(0.4),
