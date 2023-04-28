@@ -12,7 +12,10 @@ class ShoppingCartIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        IconButton(onPressed: () {}, icon: const Icon(Icons.shopping_cart)),
+        Padding(
+          padding: const EdgeInsets.all(3.0),
+          child: IconButton(onPressed: () {}, icon: const Icon(Icons.shopping_cart)),
+        ),
         Positioned(
             top: 5,
             right: 5,
