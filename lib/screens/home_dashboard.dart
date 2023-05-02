@@ -43,12 +43,7 @@ class HomeDashboardScreen extends StatelessWidget {
           ],
         ),
         body: Column(
-          children: [
-            DashboardCardsList(),
-            CategoryGridView(
-              categories: _categories,
-            )
-          ],
+          children: [DashboardCardsList(), CategoryGridView()],
         ));
   }
 }
