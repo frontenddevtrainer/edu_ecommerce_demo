@@ -2,12 +2,15 @@ import 'package:edu_ecommerce_demo/screens/home_dashboard.dart';
 import 'package:edu_ecommerce_demo/screens/login_screen.dart';
 import 'package:edu_ecommerce_demo/screens/register_screen.dart';
 import 'package:edu_ecommerce_demo/theme.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 
 class Application extends StatelessWidget {
-  const Application({super.key});
+  Application({super.key});
+
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -23,11 +26,53 @@ class Application extends StatelessWidget {
                   fontFamily: "MontserratMedium",
                   fontSize: 24,
                   fontWeight: FontWeight.bold))),
-      initialRoute: "/register",
-      routes: {
-        "/login": (context) => const LoginScreen(),
-        "/register": (context) => const RegisterScreen(),
-        "/home_dashbaoard": (context) => HomeDashboardScreen()
+      // initialRoute: "/register",
+      // routes: {
+      //   "/login": (context) => const LoginScreen(),
+      //   "/register": (context) => const RegisterScreen(),
+      //   "/home_dashbaoard": (context) => HomeDashboardScreen()
+      // },
+
+      home: FutureBuilder(
+        future: _auth.authStateChanges().first,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          } else if (snapshot.hasData) {
+            return HomeDashboardScreen();
+          } else {
+            return const LoginScreen();
+          }
+        },
+      ),
+      onGenerateRoute: (settings) {
+        switch (settings.name) {
+          case "/login":
+            return MaterialPageRoute(
+              settings: settings,
+              builder: (context) {
+                return const LoginScreen();
+              },
+            );
+
+          case "/dashboard":
+            return MaterialPageRoute(
+              settings: settings,
+              builder: (context) {
+                return HomeDashboardScreen();
+              },
+            );
+
+          case "/register":
+            return MaterialPageRoute(
+              settings: settings,
+              builder: (context) {
+                return const RegisterScreen();
+              },
+            );
+        }
       },
     );
   }

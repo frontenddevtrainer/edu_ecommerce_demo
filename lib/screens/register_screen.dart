@@ -1,4 +1,5 @@
 import 'package:edu_ecommerce_demo/theme.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import "package:firebase_auth/firebase_auth.dart";
 
@@ -32,14 +33,27 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 email: _emailController.text,
                 password: _passwordController.text);
 
+        await userCredential.user!.updateDisplayName(_firstnameController.text);
+
+        // await FirebaseDatabase.instance
+        //     .ref()
+        //     .child("users")
+        //     .child(userCredential.user!.uid)
+        //     .set({
+        //   'firstname': _firstnameController.text,
+        //   'lastname': _lastameController.text
+        // });
+
         Navigator.pushNamedAndRemoveUntil(context, "/login", (route) => false);
-      } on FirebaseAuthException catch (e) {
-        if (e.code == "weak-password") {
-          setState(() {
-            _asyncFormErrorMessage =
-                "Provided password doesn't meet the requirements please correct";
-          });
-        }
+      } catch (e) {
+        print(e);
+
+        // if (e.code == "weak-password") {
+        //   setState(() {
+        //     _asyncFormErrorMessage =
+        //         "Provided password doesn't meet the requirements please correct";
+        //   });
+        // }
       }
     }
   }
