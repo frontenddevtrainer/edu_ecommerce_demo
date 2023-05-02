@@ -7,9 +7,10 @@ class EduTextField extends StatelessWidget {
   final String hintText;
   final TextEditingController controller;
   bool obscureText;
+  dynamic validator;
 
   EduTextField(
-      {super.key, required this.hintText, required this.controller, this.obscureText = false});
+      {super.key, required this.hintText, required this.controller, this.obscureText = false, this.validator});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +19,8 @@ class EduTextField extends StatelessWidget {
           borderRadius: BorderRadius.circular(25),
           color: brand_color,
           border: Border.all(color: text_light_color)),
-      child: TextField(
+      child: TextFormField(
+        validator: validator,
         obscureText: obscureText,
         controller: controller,
         style: TextStyle(color: text_light_color),

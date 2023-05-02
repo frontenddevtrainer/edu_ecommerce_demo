@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "73479198925",
+    "project_id": "edu-ecommerce-1182e",
+    "storage_bucket": "edu-ecommerce-1182e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:73479198925:android:76eb82c67d1cd88a6e3184",
+        "android_client_info": {
+          "package_name": "com.example.edu_ecommerce_demo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "73479198925-ai5l2mjrrnr6dns9fmhgscdj4mt53t3e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBExulMr8AhRNchwA9OiAlb9JQW4wyKK1k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "73479198925-ai5l2mjrrnr6dns9fmhgscdj4mt53t3e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

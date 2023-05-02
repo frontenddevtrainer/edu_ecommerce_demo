@@ -23,7 +23,7 @@ class Application extends StatelessWidget {
                   fontFamily: "MontserratMedium",
                   fontSize: 24,
                   fontWeight: FontWeight.bold))),
-      initialRoute: "/home_dashbaoard",
+      initialRoute: "/register",
       routes: {
         "/login": (context) => const LoginScreen(),
         "/register": (context) => const RegisterScreen(),
