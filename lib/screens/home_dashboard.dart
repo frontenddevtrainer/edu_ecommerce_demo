@@ -1,3 +1,4 @@
+import 'package:edu_ecommerce_demo/widgets/application_app_bar.dart';
 import 'package:edu_ecommerce_demo/widgets/dashboard_cards_list.dart';
 import 'package:edu_ecommerce_demo/widgets/dashboard_catergory_gridview.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -9,8 +10,6 @@ import '../widgets/shopping_cart_icon.dart';
 
 class HomeDashboardScreen extends StatelessWidget {
   HomeDashboardScreen({super.key});
-
-  final _userCredential = FirebaseAuth.instance;
 
   final _categories = [
     {"name": "Beverages"},
@@ -26,24 +25,11 @@ class HomeDashboardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text("Groceries"),
-          actions: [
-            IconButton(onPressed: () {}, icon: Icon(Icons.favorite)),
-            ShoppingCartIcon(
-              count: 10,
-            ),
-            IconButton(
-                onPressed: () {
-                  _userCredential.signOut();
-                  Navigator.pushNamedAndRemoveUntil(
-                      context, "/login", (route) => false);
-                },
-                icon: Icon(Icons.logout)),
-          ],
-        ),
+        appBar: ApplicationAppBar(),
         body: Column(
           children: [DashboardCardsList(), CategoryGridView()],
         ));
   }
 }
+
+

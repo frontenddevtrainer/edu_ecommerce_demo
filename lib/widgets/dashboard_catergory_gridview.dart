@@ -10,6 +10,7 @@ class CategoryGridView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+  
     return StreamBuilder<QuerySnapshot>(
       stream: _categories.snapshots(),
       builder: (context, AsyncSnapshot snapshot) {
@@ -27,22 +28,32 @@ class CategoryGridView extends StatelessWidget {
                     crossAxisCount: 4),
                 children: snapshot.data!.docs
                     .map<Widget>((DocumentSnapshot snapshot) {
-                  return Stack(
-                    children: [
-                      FadeInImage(
-                          fit: BoxFit.cover,
-                          placeholder: const AssetImage("assets/images/splash.png"),
-                          image: NetworkImage(snapshot["image"])),
-                      Positioned(
-                          child: Container(
-                        color: Colors.black.withOpacity(0.4),
-                        child: Center(
-                            child: Text(
-                          snapshot["name"],
-                          style: TextStyle(color: text_light_color),
-                        )),
-                      ))
-                    ],
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, "/products-listing",
+                          arguments: {
+                            'category': snapshot.id,
+                            'name': snapshot["name"]
+                          });
+                    },
+                    child: Stack(
+                      children: [
+                        FadeInImage(
+                            fit: BoxFit.cover,
+                            placeholder:
+                                const AssetImage("assets/images/splash.png"),
+                            image: NetworkImage(snapshot["image"])),
+                        Positioned(
+                            child: Container(
+                          color: Colors.black.withOpacity(0.4),
+                          child: Center(
+                              child: Text(
+                            snapshot["name"],
+                            style: TextStyle(color: text_light_color),
+                          )),
+                        ))
+                      ],
+                    ),
                   );
                 }).toList(),
               ),

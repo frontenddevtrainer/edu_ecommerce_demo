@@ -1,5 +1,6 @@
 import 'package:edu_ecommerce_demo/screens/home_dashboard.dart';
 import 'package:edu_ecommerce_demo/screens/login_screen.dart';
+import 'package:edu_ecommerce_demo/screens/products_listing.dart';
 import 'package:edu_ecommerce_demo/screens/register_screen.dart';
 import 'package:edu_ecommerce_demo/theme.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -26,13 +27,6 @@ class Application extends StatelessWidget {
                   fontFamily: "MontserratMedium",
                   fontSize: 24,
                   fontWeight: FontWeight.bold))),
-      // initialRoute: "/register",
-      // routes: {
-      //   "/login": (context) => const LoginScreen(),
-      //   "/register": (context) => const RegisterScreen(),
-      //   "/home_dashbaoard": (context) => HomeDashboardScreen()
-      // },
-
       home: FutureBuilder(
         future: _auth.authStateChanges().first,
         builder: (context, snapshot) {
@@ -70,6 +64,14 @@ class Application extends StatelessWidget {
               settings: settings,
               builder: (context) {
                 return const RegisterScreen();
+              },
+            );
+
+          case "/products-listing":
+            return MaterialPageRoute(
+              settings: settings,
+              builder: (context) {
+                return const ProductListingScreen();
               },
             );
         }
