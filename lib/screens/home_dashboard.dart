@@ -25,7 +25,7 @@ class HomeDashboardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: ApplicationAppBar(),
+        appBar: ApplicationAppBar(title: "Groceries",),
         body: Column(
           children: [DashboardCardsList(), CategoryGridView()],
         ));

@@ -7,18 +7,16 @@ class ProductListingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-     final arguments = ModalRoute.of(context)!.settings.arguments;
-    
-    print(arguments);
+    final arguments = ModalRoute.of(context)!.settings.arguments as Map;
 
     return Scaffold(
       appBar: ApplicationAppBar(
-        title: "Fruits",
+        title: arguments['name'],
       ),
       body: StreamBuilder(
         stream: FirebaseFirestore.instance
             .collection("products")
-            .where("category", isEqualTo: "PLXjyPBamBACQn5yqUBQ")
+            .where("category", isEqualTo: arguments['category'])
             .snapshots(),
         builder: (context, AsyncSnapshot snapshot) {
           if (snapshot.hasError) {}
