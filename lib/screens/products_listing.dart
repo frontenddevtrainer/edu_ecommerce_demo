@@ -1,4 +1,5 @@
 import 'package:edu_ecommerce_demo/widgets/application_app_bar.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -41,7 +42,16 @@ class ProductListingScreen extends StatelessWidget {
                   leading: Image.network(product["thumbnail"]),
                   trailing: ElevatedButton(
                     child: Text("Add to cart"),
-                    onPressed: () {},
+                    onPressed: () {
+                      FirebaseFirestore.instance
+                          .collection("cart")
+                          .doc(FirebaseAuth.instance.currentUser!.uid)
+                          .set({
+                        "products": FieldValue.arrayUnion([
+                          {'name': product['name'], 'price': product['price']}
+                        ])
+                      }, SetOptions(merge: true));
+                    },
                   ),
                 );
               });

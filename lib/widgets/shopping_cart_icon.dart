@@ -14,7 +14,11 @@ class ShoppingCartIcon extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.all(3.0),
-          child: IconButton(onPressed: () {}, icon: const Icon(Icons.shopping_cart)),
+          child: IconButton(
+              onPressed: () {
+                Navigator.pushNamed(context, "/cart");
+              },
+              icon: const Icon(Icons.shopping_cart)),
         ),
         Positioned(
             top: 5,

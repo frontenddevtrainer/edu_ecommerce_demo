@@ -1,3 +1,4 @@
+import 'package:edu_ecommerce_demo/screens/cart_screen.dart';
 import 'package:edu_ecommerce_demo/screens/home_dashboard.dart';
 import 'package:edu_ecommerce_demo/screens/login_screen.dart';
 import 'package:edu_ecommerce_demo/screens/products_listing.dart';
@@ -72,6 +73,14 @@ class Application extends StatelessWidget {
               settings: settings,
               builder: (context) {
                 return const ProductListingScreen();
+              },
+            );
+
+          case "/cart":
+            return MaterialPageRoute(
+              settings: settings,
+              builder: (context) {
+                return const CartScreen();
               },
             );
         }
