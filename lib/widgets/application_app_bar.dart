@@ -18,9 +18,7 @@ class ApplicationAppBar extends StatelessWidget with PreferredSizeWidget {
       title: Text(title),
       actions: [
         IconButton(onPressed: () {}, icon: const Icon(Icons.favorite)),
-        ShoppingCartIcon(
-          count: 10,
-        ),
+        ShoppingCartIcon(),
         IconButton(
             onPressed: () {
               _userCredential.signOut();

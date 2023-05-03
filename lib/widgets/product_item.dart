@@ -12,22 +12,42 @@ class ProductItem extends StatefulWidget {
 }
 
 class _ProductItemState extends State<ProductItem> {
-  int quanity = 0;
+  int quantity = 0;
 
   void _increaseQuantity() {
     setState(() {
-      quanity++;
+      quantity++;
     });
     _updateQuantity();
   }
 
   void _decreaseQuantity() {
     setState(() {
-      if (quanity > 0) {
-        quanity--;
+      if (quantity > 0) {
+        quantity--;
       }
     });
     _updateQuantity();
+  }
+
+  void _getQuantity() async {
+    DocumentSnapshot cart = await FirebaseFirestore.instance
+        .collection("cart")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get();
+
+    if (cart.exists) {
+      final Map<String, dynamic> cartData = cart.data() as Map<String, dynamic>;
+      final products = cartData["products"] ?? [];
+
+      for (var i = 0; i < products.length; i++) {
+        if (products[i]["id"] == widget.id) {
+          setState(() {
+            quantity = products[i]["quantity"];
+          });
+        }
+      }
+    }
   }
 
   void _updateQuantity() async {
@@ -42,7 +62,7 @@ class _ProductItemState extends State<ProductItem> {
 
       for (var i = 0; i < products.length; i++) {
         if (products[i]["id"] == widget.id) {
-          products[i]["quantity"] = quanity;
+          products[i]["quantity"] = quantity;
         }
       }
 
@@ -54,32 +74,43 @@ class _ProductItemState extends State<ProductItem> {
   }
 
   @override
+  initState() {
+    super.initState();
+    _getQuantity();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return ListTile(
       title: Text(widget.product['name']),
       leading: Image.network(widget.product["thumbnail"]),
-      trailing: Row(mainAxisSize: MainAxisSize.min, children: [
-        IconButton(onPressed: _decreaseQuantity, icon: Icon(Icons.remove)),
-        Text(quanity.toString()),
-        IconButton(onPressed: _increaseQuantity, icon: Icon(Icons.add)),
-        ElevatedButton(
-            onPressed: () {
-              FirebaseFirestore.instance
-                  .collection("cart")
-                  .doc(FirebaseAuth.instance.currentUser!.uid)
-                  .set({
-                "products": FieldValue.arrayUnion([
-                  {
-                    'name': widget.product['name'],
-                    'price': widget.product['price'],
-                    "id": widget.id,
-                    "quantity": 1
-                  }
-                ])
-              }, SetOptions(merge: true));
-            },
-            child: Text("Add to cart"))
-      ]),
+      trailing: quantity == 0
+          ? ElevatedButton(
+              onPressed: () {
+                FirebaseFirestore.instance
+                    .collection("cart")
+                    .doc(FirebaseAuth.instance.currentUser!.uid)
+                    .set({
+                  "products": FieldValue.arrayUnion([
+                    {
+                      'name': widget.product['name'],
+                      'price': widget.product['price'],
+                      "id": widget.id,
+                      "quantity": 1
+                    }
+                  ])
+                }, SetOptions(merge: true));
+                setState(() {
+                  quantity = 1;
+                });
+              },
+              child: Text("Add to cart"))
+          : Row(mainAxisSize: MainAxisSize.min, children: [
+              IconButton(
+                  onPressed: _decreaseQuantity, icon: Icon(Icons.remove)),
+              Text(quantity.toString()),
+              IconButton(onPressed: _increaseQuantity, icon: Icon(Icons.add)),
+            ]),
     );
   }
 }
